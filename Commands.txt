@@ -1,1 +1,105 @@
-#RHEL Command list
+#RHEL7 COMMANDS LIST
+#Reference from --> https://access.redhat.com/sites/default/files/attachments/rhel_5_6_7_cheatsheet_27x36_1014_jcs_web.pdf
+
+#System Usage
+  --> top
+  --> ps
+  --> sar
+  --> iostat
+  --> ss
+  --> vmstat
+  --> mpstat
+  --> numastat
+  --> tuna
+  
+#Disk Usage
+  --> df
+  --> iostat
+  
+#Trace System Calls
+  --> strace
+  
+#Trace Library Calls
+  --> ltrace
+  
+#Change Process Priority
+  --> nice
+  --> renice
+  
+#Change Process run location
+  --> taskset
+
+#Kill a Process
+  --> kill
+  --> pkill
+  --> killall
+  
+#Configure Firewall
+  --> firewall-cmd
+  --> firewall-config
+  
+#Configure DHCP-Client
+  --> dhcpd
+  --> /etc/dhcp/dhcpd.conf
+  --> /etc/sysconfig/dhcpd
+  
+#Configure Name Resolution
+  --> /etc/hosts
+  --> /etc/resolv.conf
+  --> nmcli con mod
+  
+#Configure hostname
+  --> hostnamectl
+  --> /etc/hostname
+  --> nmtui
+  
+#View network interface info
+  --> ip addr
+  --> nmcli dev show
+  --> teamdctl
+  --> brctl
+  --> bridge
+  
+#Configure network interface
+  --> /etc/sysconfig/network-scripts/ifcfg-*
+  --> nmcli con [add|mod|edit]
+  --> nmtui
+  --> nm-connection-editor
+  
+#View ports/sockets
+  --> ss
+  --> lsof
+  
+#View routes
+  --> ip route
+  
+#Configure routes
+  --> /etc/sysconfig/network
+  --> system-config-network
+  
+#Default file system
+  --> 
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+        
+        
+
+  
+  
+  
+  
+  
