@@ -78,28 +78,283 @@
   --> system-config-network
   
 #Default file system
-  --> 
+  --> xfs
   
+#Defragment disk space
+  --> copy data to new file system
+  --> fsck (look for ‘non-contiguous inodes’
+  --> xfs_fsr
   
+#Create/modify disk partitions
+  --> fdisk 
+  --> gdisk 
+  --> parted 
+  --> ssm create
   
+#Format disk partition
+  --> mkfs.filesystem_type (ext4, xfs) 
+  --> mkswap 
+  --> ssm create
   
+#Mount storage
+  --> mount 
+  --> /etc/fstab 
+  --> ssm mount
   
+#Create physical volume
+  --> pvcreate 
+  --> ssm create (if backend is lvm
   
+#Create volume group
+  --> vgcreate
+  --> ssm create (if backend is lvm)
   
+#Create logical volume
+  --> lvcreate
+  --> ssm create (if backend is lvm)
   
+#Enlarge volumes formatted with default file system
+  --> vgextend
+  --> lvextend 
+  --> xfs_growfs 
+  --> ssm resize
   
+#Shrink volumes formatted with default file system
+  --> XFS cannot currently be shrunk; copy desired data to a smaller file system. for ext3 and ext4 use the following
+  --> resize2fs 
+  --> lvreduce 
+  --> vgreduce
   
+#Check/repair file system
+  --> fsck
+  --> ssm check
   
+#Configure NFS share
+  --> /etc/exports 
+  --> systemctl reload nfs.service
   
+#Mount and activate swap
+  --> /etc/fstab 
+  --> swapon -a
   
+#Automatically mount at boot
+  --> /etc/fstab
   
+#View free disk space
+  --> df
   
+#View logical volume info
+  --> lvdisplay 
+  --> lvs 
+  --> vgdisplay 
+  --> vgs 
+  --> pvdisplay 
+  --> pvs
   
-        
-        
-
+#View NFS share
+  --> showmount -e 
+  --> mount
   
+#Automatically mount after boot
+  --> /etc/auto.master.d/*.autofs 
+  --> /etc/auto.*
   
+#Change file permissions
+  --> chmod 
+  --> chown 
+  --> chgrp 
+  --> umask
   
+#Change access  control lis
+  --> setfacl
   
+#User management
+  --> system-config-users (Graphical user management)
+  --> useradd (Create user account)
+  --> userdel (Delete user account)
+  --> usermod (Change user account details)
+  --> groupadd (Create user group)
+  --> groupdel (Delete user group)
+  --> groupmod (Change group details)
+  --> passwd username (Change user password)
+  --> chage (Change password policy)
+  --> /etc/shadow (Encrypted password location)
+  --> w (View/end user sessions)
+  #View user account details
+    --> usermod 
+    --> /etc/passwd
+  #Change user permissions
+    --> usermod
+    --> /etc/sudoers
+  #Change group permissions
+    --> groupmod 
+    --> /etc/sudoers
+    
+#Configure system security
+  --> /etc/selinux/config 
+  --> chcon 
+  --> restorecon 
+  --> semanage 
+  --> setsebool 
+  --> system-config-selinux
+  
+#Report on system  security
+  --> sealert
+  
+#LDAP, SSSD, Kerberos
+  --> authconfig 
+  --> authconfig-tui 
+  --> authconfig-gtk
+  
+#Network users
+  --> getent
+  
+#Software management
+  --> yum install 
+  --> yum group install
+  --> yum info 
+  --> yum group info
+  --> yum update
+  --> yum upgrade
+  --> /etc/yum.repos.d/*.repo
+  --> rpm -qf filename
+  --> rpm -q packagename
+  --> rpm -qa
+  
+#Kernel, Boot and Hardware
+  #Single user/rescue mode
+    --> append rd.break or init=/bin/bash 
+    --> to kernel cmdline
+  #Shut down system
+    --> systemctl shutdown
+  #Power off system
+    --> systemctl poweroff
+  #Halt system
+    --> systemctl halt
+  #Reboot system
+    --> systemctl reboot
+  #Configure default run level/target
+    --> systemctl set-default
+  #Configure GRUB bootloader
+    --> /etc/default/grub 
+    --> grub2-mkconfig 
+    --> grub-set-default
+  #View hardware configured
+    --> lshw
+  #Configure kernel module
+    --> modprobe
+  #Configure hardware device
+    --> udev
+  #View kernel parameters
+    --> sysctl -a 
+    --> cat /proc/cmdline
+  #Load kernel module
+    --> modprobe
+  #Remove kernel module
+    --> modprobe -r
+  #View kernel version
+    --> rpm -q kernel 
+    --> uname -r
+    
+#Jobs and Services
+  #Configure Logging
+    --> /etc/rsyslog.conf 
+    --> /etc/rsyslog.d/*.conf 
+    --> /var/log/journal 
+    --> systemd-journald.service
+  #List all services
+    --> systemctl -at service 
+    --> ls /etc/systemd/system/*.service 
+    --> ls /usr/lib/systemd/system/*.service
+  #List running services
+    --> systemctl -t service --state=active
+  #Start/stop service
+    --> systemctl start name.service 
+    --> systemctl stop name.service
+  #Enable/disable service
+    --> systemctl enable name.service 
+    --> systemctl disable name.service
+  #View service status
+    --> systemctl status name.service
+  #Check if service is enabled
+    --> systemctl is-enabled name
+  #Create new service file or modify configuration
+    --> systemctl daemon-reload
+  #View run level/target
+    --> systemctl get-default 
+    --> who -r
+  #Change run level/target
+    --> systemctl isolate name.target
+    --> systemctl set-default
+  #View logs
+    --> /var/log
+    --> journalctl
+  #Configure system audit
+    --> add audit=1 to kernel cmdline 
+    --> auditctl 
+    --> /etc/audit/auditd.conf 
+    --> /etc/audit/audit.rules 
+    --> authconfig 
+    --> /etc/pam.d/system-auth 
+    --> pam_tty_audit kernel module
+  #View audit output
+    --> aureport /var/log/faillog
+  #Schedule tasks
+    --> cron
+    --> at
+  #Configure batch tasks
+    --> batch
+  #Find file by name
+    --> locate
+  #Find file by characteristic
+    --> find
+  #Create archive
+    --> tar 
+    --> cpio 
+    --> zip 
+    --> gzip 
+    --> bzip2
+    
+#Basic Configuration
+  #Graphical configuration tools
+    --> gnome-control-center
+  #Configure network
+    --> nmcli
+    --> nmtui 
+    --> nm-connection-editor
+  #Configure system language
+    --> localectl
+  #Configure time and date
+    --> imedatectl
+    --> date
+  #Synchronize time and date
+    --> timedatectl 
+    --> /etc/chrony.conf
+  #Configure keyboard
+    --> localectl
+  #Text-based configuration tools
+    --> system-config-*-tui
+  #Configure printer
+    --> system-config-printer
+  #Configure samba
+    --> smbclient 
+    --> /etc/samba/smb.conf 
+    --> smbpasswd
+  #Configure SSH
+    --> /etc/ssh/ssh_config
+    --> /etc/ssh/sshd_config 
+    --> ~/.ssh/config ssh-keygen
+    
+#System Basics
+  #View subscription information
+    --> subscription-manager identity
+  #Configure subscription
+    --> subscription-manager 
+    --> rhn_register
+  #View system profile
+    --> sosreport 
+    --> dmidecode 
+    --> lshw
+  #View RHEL version information
+    --> /etc/redhat-release
   
