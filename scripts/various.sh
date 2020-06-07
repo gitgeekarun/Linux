@@ -22,3 +22,9 @@
         echo "empty directory"
     fi
 +-----------------------------------------------------------------+
+///(3) Getting contents using {After(A) line and Before(B) line}
+  // get interface "en0" inet address from ifconfig and ping to that IP.
+    ifconfig | grep -A 1 en0 | grep "\binet\b" | awk '{print $2}' | xargs ping {}
+    
+  // 
+    
